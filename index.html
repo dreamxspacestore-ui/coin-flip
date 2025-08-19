@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="container">
+<img src="https://uploads.onecompiler.io/43sy42e7t/43ty9rhgv/Screenshot%202025-08-18%20145112.png" style="width: 150px; height: auto;">
+    
+    
+    <!-- ... rest of your content ... -->
+</div>
+ 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background:
+  linear-gradient(90deg, #000000 0%, #808080 100%),
+  linear-gradient(180deg, #000000 0%, #808080 100%);
+        
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #d0d0d0;
+            margin-top: 3rem;
+           padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .description-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 1rem 0;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .coin-selector {
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .coin-selector label {
+            font-size: 1rem;
+            color: #d0d0d0;
+            font-weight: 500;
+        }
+
+        .coin-selector select {
+            background: linear-gradient(135deg, #4a4a4a 0%, #2c2c2c 100%);
+            color: #000000;
+            border: 2px solid #606060;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .coin-selector select:hover {
+            background: linear-gradient(135deg, #5a5a5a 0%, #3c3c3c 100%);
+            border-color: #707070;
+        }
+
+        .coin-selector select:focus {
+            border-color: #808080;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+            color: #f0f0f0;
+        }
+
+        .coin-container {
+            perspective: 1000px;
+            margin: 2rem 0;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .coin {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+            cursor: pointer;
+        }
+
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            backface-visibility: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Silver coin (default) */
+        .coin.silver .coin-face {
+            background: linear-gradient(135deg, #c0c0c0 0%, #808080 50%, #a0a0a0 100%);
+            border: 8px solid rgba(220,220,220,0.6); /* Rim effect */
+box-shadow:
+    0 15px 40px rgba(0,0,0,0.6),
+    inset 0 0 25px rgba(255,255,255,0.18),
+    0 0 0 8px rgba(160,160,160,0.18);
+            color: #2c2c2c;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Gold coin */
+        .coin.gold .coin-face {
+            background: linear-gradient(135deg, #ffd700 0%, #b8860b 50%, #daa520 100%);
+            border: 8px solid rgba(220,220,220,0.6); /* Rim effect */
+box-shadow:
+    0 15px 40px rgba(0,0,0,0.6),
+    inset 0 0 25px rgba(255,255,255,0.18),
+    0 0 0 8px rgba(160,160,160,0.18);
+            color: #8b4513;
+            text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Bronze coin */
+        .coin.bronze .coin-face {
+            background: linear-gradient(135deg, #cd7f32 0%, #8b4513 50%, #a0522d 100%);
+            border: 8px solid rgba(220,220,220,0.6); /* Rim effect */
+box-shadow:
+    0 15px 40px rgba(0,0,0,0.6),
+    inset 0 0 25px rgba(255,255,255,0.18),
+    0 0 0 8px rgba(160,160,160,0.18);
+            color: #2f1b14;
+            text-shadow: 1px 1px 2px rgba(205, 127, 50, 0.3);
+        }
+
+        .coin-face.heads {
+            transform: rotateY(0deg);
+        }
+
+        .coin-face.tails {
+            transform: rotateY(180deg);
+        }
+
+        .flip-button {
+            background: linear-gradient(135deg, #4a4a4a 0%, #2c2c2c 100%);
+            color: #ffffff;
+            border: 2px solid #606060;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 2rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .flip-button:hover {
+            background: linear-gradient(135deg, #5a5a5a 0%, #3c3c3c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .flip-button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .flip-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Confetti container */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #ff1744;
+            animation: confetti-fall 3s ease-out forwards;
+            border-radius: 3px;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+        }
+
+        .confetti:nth-child(2n) { background: #00e676; }
+        .confetti:nth-child(3n) { background: #2196f3; }
+        .confetti:nth-child(4n) { background: #ff9800; }
+        .confetti:nth-child(5n) { background: #ffeb3b; }
+        .confetti:nth-child(6n) { background: #e91e63; }
+        .confetti:nth-child(7n) { background: #9c27b0; }
+        .confetti:nth-child(8n) { background: #00bcd4; }
+        .confetti:nth-child(9n) { background: #4caf50; }
+        .confetti:nth-child(10n) { background: #f44336; }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotateZ(0deg) rotateY(0deg);
+                opacity: 1;
+            }
+            25% {
+                transform: translateY(-50vh) rotateZ(90deg) rotateY(180deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(0vh) rotateZ(180deg) rotateY(360deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(50vh) rotateZ(270deg) rotateY(540deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(120vh) rotateZ(360deg) rotateY(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Clean coin flip animation */
+        .coin.flipping {
+            animation: cleanFlip 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes cleanFlip {
+            0% {
+                transform: rotateX(0deg) translateY(0px);
+            }
+            50% {
+                transform: rotateX(1800deg) translateY(-30px);
+            }
+            100% {
+                transform: rotateX(3600deg) translateY(0px);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 95%;
+                padding: 15px;
+            }
+
+            .title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .coin {
+                width: 160px;
+                height: 160px;
+            }
+
+            .coin-face {
+                font-size: 1.5rem;
+            }
+
+            .flip-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .description {
+                font-size: 0.8rem;
+                padding: 1rem;
+                margin-top: 2rem;
+            }
+
+            .description-title {
+                font-size: 1.1rem;
+            }
+
+            .coin-selector {
+                margin: 1.5rem 0;
+            }
+
+            .coin-selector label {
+                font-size: 0.9rem;
+            }
+
+            .coin-selector select {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Coin Flip</h1>
+        
+        <div class="coin-selector">
+            <label for="coinType">Choose Coin Design:</label>
+            <select id="coinType" onchange="changeCoinDesign()">
+                <option value="silver">Silver Coin</option>
+                <option value="gold">Gold Coin</option>
+                <option value="bronze">Bronze Coin</option>
+            </select>
+        </div>
+        
+        <div class="coin-container">
+            <div class="coin silver" id="coin">
+                <div class="coin-face heads" id="headsface">HEADS</div>
+                <div class="coin-face tails" id="tailsface">TAILS</div>
+            </div>
+        </div>
+        
+        <button class="flip-button" id="flipButton" onclick="flipCoin()">
+            Flip Coin
+        </button>
+        
+        <div class="description">
+            <h2 class="description-title">Heads or Tails? The Ultimate Decision Maker</h2>
+          
+        A coin flip is the world's simplest suspense machine: two sides, one decision, and a heartbeat of uncertainty in between. For centuries people have let a small disc of metal settle arguments, start games, and cut through indecision when choices feel evenly matched. In theory it's perfectly fair—heads or tails with equal chance—but in practice tiny things (how you flick, spin, or catch it) can nudge outcomes, which is why scientists and referees prefer consistent methods. That blend of clean math and real-world messiness is what makes flipping so satisfying: every toss is independent, yet our brains can't help hunting for streaks and patterns. It's also a powerful teaching tool for probability, randomness, and why "best of three" feels more trustworthy than a single toss. Whether you're deciding who serves first or leaving a tough call to fate, the flip keeps drama small and stakes clear.
+        <h2 class="description-title">How it Works:</h2>
+        Flipping a coin online is super easy! Just click the ‘Flip Coin’ button or tap the coin itself, and watch it spin in a realistic 3D animation. The coin will land showing either Heads or Tails, giving you a fair and random result every time. Use it to make decisions, settle bets, or just for fun — it’s instant, accurate, and works perfectly on both desktop and mobile devices.</h2>
+        </div>
+    </div>
+
+    <!-- Confetti container -->
+    <div id="confetti-container" class="confetti-container"></div>
+
+    <script>
+        let isFlipping = false;
+        let currentRotationY = 0;
+
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti-container');
+            const confettiCount = 80;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                
+                // Random horizontal position
+                confetti.style.left = Math.random() * 100 + '%';
+                
+                // Random animation delay
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                // Random size variation - larger and more varied
+                const size = Math.random() * 15 + 10;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                // Random animation duration
+                confetti.style.animationDuration = '2.5 s';
+                
+                // Add extra brightness
+                confetti.style.filter = 'brightness(1.2) saturate(1.3)';
+                
+                // Add different shapes
+                if (i % 4 === 0) {
+                    confetti.style.borderRadius = '50%'; // Circle
+                } else if (i % 4 === 1) {
+                    confetti.style.borderRadius = '3px'; // Square
+                } else if (i % 4 === 2) {
+                    confetti.style.borderRadius = '50% 0'; // Teardrop
+                } else {
+                    confetti.style.borderRadius = '0'; // Diamond shape
+                    confetti.style.transform = 'rotate(45deg)';
+                }
+                
+                confettiContainer.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 5000);
+            }
+        }
+
+        function changeCoinDesign() {
+            if (isFlipping) return;
+            
+            const coinType = document.getElementById('coinType').value;
+            const coin = document.getElementById('coin');
+            
+            // Remove all existing design classes
+            coin.classList.remove('silver', 'gold', 'bronze');
+            
+            // Add the selected design class
+            coin.classList.add(coinType);
+        }
+
+        function flipCoin() {
+            if (isFlipping) return;
+            
+            isFlipping = true;
+            
+            const coin = document.getElementById('coin');
+            const flipButton = document.getElementById('flipButton');
+            
+            // Disable button
+            flipButton.disabled = true;
+            
+            // Generate random result (true = heads, false = tails)
+            const isHeads = Math.random() < 0.5;
+            
+            // Calculate target rotation - we need to end with the correct face showing
+            const rotations = 5 + Math.floor(Math.random() * 3); // 5-7 rotations
+            let targetRotationY;
+            
+            if (isHeads) {
+                // For heads, end at 0° or multiple of 360°
+                targetRotationY = currentRotationY + (rotations * 360);
+            } else {
+                // For tails, end at 180° + multiple of 360°
+                targetRotationY = currentRotationY + (rotations * 360) + 180;
+            }
+            
+            // Add the flip animation class for visual effect
+            coin.classList.add('flipping');
+            
+            // Apply smooth rotation transition
+            coin.style.transition = 'transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            coin.style.transform = `rotateY(${targetRotationY}deg)`;
+            
+            // Update current rotation immediately
+            currentRotationY = targetRotationY;
+            
+            // After animation completes
+            setTimeout(() => {
+                // Remove animation class
+                coin.classList.remove('flipping');
+                
+                // Trigger confetti celebration
+                createConfetti();
+                
+                // Re-enable button
+                flipButton.disabled = false;
+                isFlipping = false;
+                
+            }, 1500); // Match animation duration
+        }
+
+        // Add keyboard support
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space' || event.key === 'Enter') {
+                event.preventDefault();
+                flipCoin();
+            }
+        });
+
+        // Add click to coin for flipping
+        document.getElementById('coin').addEventListener('click', flipCoin);
+    </script>
+</body>
+</html>
